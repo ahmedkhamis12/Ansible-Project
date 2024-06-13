@@ -44,7 +44,7 @@ The project uses Ansible to:
 
     ```bash
     git clone https://github.com/ahmedkhamis12/Ansible-Project.git
-    cd your -Ansible-Project
+    cd Ansible-Project
     ```
 
 2. **Ensure you have an Ansible inventory file:**
@@ -75,7 +75,30 @@ The project uses Ansible to:
     ```bash
     ps aux | grep node
     ```
+## EC2 SSH Key Setup
 
+1. **Create an EC2 Key Pair:**
+
+    - Go to the EC2 Dashboard in the AWS Management Console.
+    - Click on "Key Pairs" under "Network & Security".
+    - Click on "Create key pair".
+    - Give it a name (e.g., `your-ec2-key`) and select the file format (.pem for Linux/macOS).
+    - Click "Create key pair" and download the `.pem` file.
+
+2. **Set Permissions for the Key Pair:**
+
+    ```bash
+    chmod 400 ~/.ssh/your-ec2-key.pem
+    ```
+
+3. **Use the Key Pair with Ansible:**
+
+    Ensure the inventory file points to your private key:
+
+    ```ini
+    [servers]
+    3.80.227.221 ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/your-ec2-key.pem
+    ```
 ## Contributing
 
 We welcome contributions! Please fork this repository and submit pull requests.
