@@ -1,0 +1,40 @@
+---
+- name: install node and npm
+  hosts: 3.80.227.221
+  become: yes
+  tasks:
+    - name: update apt repo and cache
+      apt: 
+        update_cache: yes
+    - name: Install npm and node on the server
+      apt:
+        pkg:
+          - nodejs
+          - npm
+
+- name: Deploy the nodejs application
+  hosts: 3.80.227.221
+  # become: yes
+  tasks:
+    - name: copy node artifact and unpack
+      unarchive:
+        src: ./simple-nodejs-app/nodejs-app-1.0.0.tgz
+        dest: /home/ubuntu/
+
+
+    - name: Install Nodejs Dependencies    
+      npm:
+        path: /home/ubuntu/package
+
+    - name: Start The Application    
+      command:
+        chdir: /home/ubuntu/package/app
+        cmd: node server.js
+      async: 45
+      poll: 0
+
+
+    - name: Make sure the application is running  
+      shell: ps aux | grep node
+      register: app_status
+    - debug: msg={{app_status.stdout}}  
