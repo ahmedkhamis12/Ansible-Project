@@ -1,6 +1,6 @@
-# Node.js Application Deployment with Ansible
+# Node.js Application Deployment with Ansible on AWS
 
-This project demonstrates how to automate the deployment of a Node.js application using Ansible. The playbook provisions a server, installs necessary dependencies, and deploys a simple Node.js application.
+This project demonstrates how to automate the deployment of a Node.js application on AWS EC2 instances using Ansible. The playbook provisions a server, installs necessary dependencies, and deploys a simple Node.js application.
 
 ## Table of Contents
 
